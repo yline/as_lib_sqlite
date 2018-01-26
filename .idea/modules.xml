@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/LibSqlite/LibSqlite.iml" filepath="$PROJECT_DIR$/LibSqlite/LibSqlite.iml" />
+      <module fileurl="file://$PROJECT_DIR$/LibSqliteDemo/LibSqliteDemo.iml" filepath="$PROJECT_DIR$/LibSqliteDemo/LibSqliteDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/_LibSqlite.iml" filepath="$PROJECT_DIR$/_LibSqlite.iml" />
+      <module fileurl="file://F:\git_space\as_lib\_LibSqlite\LibSqliteDemo\app.iml" filepath="F:\git_space\as_lib\_LibSqlite\LibSqliteDemo\app.iml" />
+    </modules>
+  </component>
+</project>
