@@ -33,15 +33,15 @@ ext {
     bintrayName = 'libsqlite'
 
     publishedGroupId = 'com.yline.lib'
-    libraryName = 'LibSQLite'
-    artifact = 'LibSQLite'
+    libraryName = 'LibSqlite'
+    artifact = 'LibSqlite'
 
     libraryDescription = 'provider sqlite ect'
 
     siteUrl = 'https://github.com/yline/as_lib_sqlite'
     gitUrl = 'https://github.com/yline/as_lib_sqlite.git'
 
-    libraryVersion = '1.0.0'
+    libraryVersion = '1.0.2'
 
     developerId = 'yline'
     developerName = 'yline'
