@@ -93,4 +93,21 @@ public interface ExecuteDbCallback<Key, Model> {
      * 清除所有数据
      */
     void deleteAll();
+
+    /**
+     * 执行某条语句，没有返回值
+     *
+     * @param sql      例如：update person set phone=?,name=? where personid=?
+     * @param bindArgs 例如： new Object[]{176, "yline", 11}
+     */
+    void execSQL(String sql, Object[] bindArgs);
+
+    /**
+     * 执行语句，获取游标
+     *
+     * @param sql           例如：select * from TABLE where NAME like ? and AGE=?
+     * @param selectionArgs 例如： new String[]{"%传智%", "4"}
+     * @param callback      游标在回调中使用，较为安全
+     */
+    void rawQuery(String sql, String[] selectionArgs, AbstractDao.OnCursorCallback callback);
 }

@@ -114,6 +114,35 @@ public abstract class AbstractDao<Key, Model> implements ExecuteDbCallback<Key, 
         mScope.clear();
     }
 
+    @Override
+    public void execSQL(String sql, Object[] bindArgs) {
+        mDb.execSQL(sql, bindArgs);
+    }
+
+    @Override
+    public void rawQuery(String sql, String[] selectionArgs, OnCursorCallback callback) {
+        Cursor cursor = null;
+        try {
+            cursor = mDb.rawQuery(sql, selectionArgs);
+            if (null != callback) {
+                callback.onRawQuery(cursor);
+            }
+        } finally {
+            if (null != cursor) {
+                cursor.close();
+            }
+        }
+    }
+
+    public interface OnCursorCallback {
+        /**
+         * 使用游标获取想要的信息
+         *
+         * @param cursor 游标
+         */
+        void onRawQuery(Cursor cursor);
+    }
+
     /**
      * 读取表中 所有数据
      *
