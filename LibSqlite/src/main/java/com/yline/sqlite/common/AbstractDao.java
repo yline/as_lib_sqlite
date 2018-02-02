@@ -120,13 +120,14 @@ public abstract class AbstractDao<Key, Model> implements ExecuteDbCallback<Key, 
     }
 
     @Override
-    public void rawQuery(String sql, String[] selectionArgs, OnCursorCallback callback) {
+    public <Result> Result rawQuery(String sql, String[] selectionArgs, OnCursorCallback<Result> callback) {
         Cursor cursor = null;
         try {
             cursor = mDb.rawQuery(sql, selectionArgs);
             if (null != callback) {
-                callback.onRawQuery(cursor);
+                return callback.onRawQuery(cursor);
             }
+            return null;
         } finally {
             if (null != cursor) {
                 cursor.close();
@@ -134,13 +135,13 @@ public abstract class AbstractDao<Key, Model> implements ExecuteDbCallback<Key, 
         }
     }
 
-    public interface OnCursorCallback {
+    public interface OnCursorCallback<Result> {
         /**
          * 使用游标获取想要的信息
          *
          * @param cursor 游标
          */
-        void onRawQuery(Cursor cursor);
+        Result onRawQuery(Cursor cursor);
     }
 
     /**

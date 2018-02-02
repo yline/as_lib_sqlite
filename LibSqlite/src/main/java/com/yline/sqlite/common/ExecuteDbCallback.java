@@ -109,5 +109,5 @@ public interface ExecuteDbCallback<Key, Model> {
      * @param selectionArgs 例如： new String[]{"%传智%", "4"}
      * @param callback      游标在回调中使用，较为安全
      */
-    void rawQuery(String sql, String[] selectionArgs, AbstractDao.OnCursorCallback callback);
+    <Result> Result rawQuery(String sql, String[] selectionArgs, AbstractDao.OnCursorCallback<Result> callback);
 }

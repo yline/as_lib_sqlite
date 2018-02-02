@@ -41,7 +41,7 @@ ext {
     siteUrl = 'https://github.com/yline/as_lib_sqlite'
     gitUrl = 'https://github.com/yline/as_lib_sqlite.git'
 
-    libraryVersion = '1.0.3'
+    libraryVersion = '1.0.4'
 
     developerId = 'yline'
     developerName = 'yline'
