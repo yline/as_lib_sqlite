@@ -1,9 +1,10 @@
 package com.lib.sqlite.demo;
 
 import com.lib.sqlite.demo.common.AbstractSQLiteTest;
-import com.lib.sqlite.demo.db.LongModel;
-import com.lib.sqlite.demo.db.LongModelDao;
-import com.yline.sqlite.dao.DaoManager;
+import com.lib.sqlite.demo.dao.DaoManager;
+import com.lib.sqlite.demo.dao.model.LongModel;
+import com.lib.sqlite.demo.dao.model.LongModelDao;
+import com.yline.sqlite.SQLiteManager;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -22,7 +23,7 @@ public class LongModelTest extends AbstractSQLiteTest<Long, LongModel> {
 
     @Before
     public void setUp() throws Exception {
-        mDao = (LongModelDao) DaoManager.getInstance().getDaoSession().getModelDao(LongModelDao.TABLE_NAME);
+    	mDao = DaoManager.getLongModelDao();
 
         mRandom = new Random();
     }

@@ -2,10 +2,11 @@ package com.lib.sqlite.demo.common;
 
 import android.util.Log;
 
-import com.yline.sqlite.SqliteManager;
+import com.lib.sqlite.demo.dao.DaoManager;
 import com.yline.sqlite.async.AsyncHelper;
-import com.yline.sqlite.dao.DaoManager;
-import com.yline.sqlite.helper.ByteModel;
+import com.yline.sqlite.async.Type;
+import com.yline.sqlite.SQLiteManager;
+import com.lib.sqlite.demo.dao.model.ByteModel;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -37,77 +38,71 @@ public abstract class AbstractByteModelAsyncTest<Key extends String, Model exten
         mRandom = new Random();
 
         Log.i(TAG, "setUp: ");
-        operation = SqliteManager.getByteModelAsync();
+        operation = DaoManager.getByteModelAsync();
     }
 
     @Test
     public void testInsertAndLoad() throws Exception {
         final Key key = createRandomPK();
         final Model model = createModel(key);
-
-        SqliteManager.getByteModelAsync().insert(model, new AsyncHelper.OnCompleteListener() {
-            @Override
-            public void onAsyncComplete(AsyncHelper.Type type) {
-                Assert.assertEquals(type, AsyncHelper.Type.Insert);
-            }
-        }, new AsyncHelper.OnResultListener<Long>() {
-            @Override
-            public void onAsyncResult(Long aLong) {
-                Log.i(TAG, "testInsertAndLoad: ");
-
-                Assert.assertEquals(key, SqliteManager.getByteModelDao().getKey(model));
-
-                Model loadModel = (Model) SqliteManager.getByteModelDao().load(key);
-                assertModel(model, loadModel);
-            }
-        });
+	
+	    DaoManager.getByteModelAsync().insert(model, new AsyncHelper.OnResultListener<Long>() {
+		    @Override
+		    public void onAsyncResult(Type type, Long aLong) {
+			    Assert.assertEquals(type, Type.Insert);
+			
+			    Log.i(TAG, "testInsertAndLoad: ");
+			
+			    Assert.assertEquals(key, DaoManager.getByteModelDao().getKey(model));
+			
+			    Model loadModel = (Model) DaoManager.getByteModelDao().load(key);
+			    assertModel(model, loadModel);
+		    }
+	    });
     }
 
     @Test
     public void testCount() throws Exception {
-        final long countA = SqliteManager.getByteModelDao().count();
-
-        SqliteManager.getByteModelAsync().insert(createModel(createRandomPK()), new AsyncHelper.OnCompleteListener() {
-            @Override
-            public void onAsyncComplete(AsyncHelper.Type type) {
-                Assert.assertEquals(type, AsyncHelper.Type.Insert);
-            }
-        }, new AsyncHelper.OnResultListener<Long>() {
-            @Override
-            public void onAsyncResult(Long aLong) {
-                long countB = SqliteManager.getByteModelDao().count();
-                Log.i(TAG, "testCount: rowId = " + aLong + ", countA = " + countA + ", countB = " + countB);
-
-                Assert.assertEquals(countA + 1, countB);
-            }
-        });
+        final long countA = DaoManager.getByteModelDao().count();
+	
+	    DaoManager.getByteModelAsync().insert(createModel(createRandomPK()), new AsyncHelper.OnResultListener<Long>() {
+		    @Override
+		    public void onAsyncResult(Type type, Long aLong) {
+			    Assert.assertEquals(type, Type.Insert);
+			
+			    long countB = DaoManager.getByteModelDao().count();
+			    Log.i(TAG, "testCount: rowId = " + aLong + ", countA = " + countA + ", countB = " + countB);
+			
+			    Assert.assertEquals(countA + 1, countB);
+		    }
+	    });
     }
 
     @Test
     public void testDeleteAll() throws Exception {
-        SqliteManager.getByteModelDao().insert(createModel(createRandomPK()));
+	    DaoManager.getByteModelDao().insert(createModel(createRandomPK()));
+	
+	    DaoManager.getByteModelAsync().deleteAll(new AsyncHelper.OnResultListener<Void>() {
+	        @Override
+	        public void onAsyncResult(Type type, Void aVoid) {
+                Assert.assertEquals(type, Type.DeleteAll);
 
-        SqliteManager.getByteModelAsync().deleteAll(new AsyncHelper.OnCompleteListener() {
-            @Override
-            public void onAsyncComplete(AsyncHelper.Type type) {
-                Assert.assertEquals(type, AsyncHelper.Type.DeleteAll);
+                SQLiteManager.v(TAG, "testDeleteAll: ");
 
-                DaoManager.v(TAG, "testDeleteAll: ");
-
-                Assert.assertEquals(0, SqliteManager.getByteModelDao().count());
+                Assert.assertEquals(0, DaoManager.getByteModelDao().count());
             }
         });
     }
 
     @Test
     public void testInsertInTx() throws Exception {
-        SqliteManager.getByteModelAsync().deleteAll(new AsyncHelper.OnCompleteListener() {
-            @Override
-            public void onAsyncComplete(AsyncHelper.Type type) {
-                Assert.assertEquals(type, AsyncHelper.Type.DeleteAll);
+	    DaoManager.getByteModelAsync().deleteAll(new AsyncHelper.OnResultListener<Void>() {
+	        @Override
+	        public void onAsyncResult(Type type, Void aVoid) {
+                Assert.assertEquals(type, Type.DeleteAll);
 
-                long count = SqliteManager.getByteModelDao().count();
-                DaoManager.v(TAG, "testInsertInTx: count = " + count);
+                long count = DaoManager.getByteModelDao().count();
+                SQLiteManager.v(TAG, "testInsertInTx: count = " + count);
                 Assert.assertEquals(0, count);
             }
         });
@@ -119,21 +114,21 @@ public abstract class AbstractByteModelAsyncTest<Key extends String, Model exten
         }
 
         final long teaTime = System.currentTimeMillis();
-        SqliteManager.getByteModelAsync().insertInTx(new ArrayList<ByteModel>(modelList), new AsyncHelper.OnCompleteListener() {
-            @Override
-            public void onAsyncComplete(AsyncHelper.Type type) {
-                Assert.assertEquals(type, AsyncHelper.Type.InsertInTx);
-
-                long count = SqliteManager.getByteModelDao().count();
-                DaoManager.v(TAG, "testInsertInTx: teaTime = " + (System.currentTimeMillis() - teaTime) + ",count = " + count);
-                Assert.assertEquals(modelList.size(), count);
-            }
+	    DaoManager.getByteModelAsync().insertInTx(new ArrayList<ByteModel>(modelList), new AsyncHelper.OnResultListener<Void>() {
+	        @Override
+	        public void onAsyncResult(Type type, Void aVoid) {
+		        Assert.assertEquals(type, Type.InsertInTx);
+		
+		        long count = DaoManager.getByteModelDao().count();
+		        SQLiteManager.v(TAG, "testInsertInTx: teaTime = " + (System.currentTimeMillis() - teaTime) + ",count = " + count);
+		        Assert.assertEquals(modelList.size(), count);
+	        }
         });
     }
 
     @Test
     public void testInsertOrReplaceInTx() throws Exception {
-        SqliteManager.getByteModelDao().deleteAll();
+	    DaoManager.getByteModelDao().deleteAll();
 
         final List<Model> listPartial = new ArrayList<>();
         final List<Model> listAll = new ArrayList<>();
@@ -146,29 +141,29 @@ public abstract class AbstractByteModelAsyncTest<Key extends String, Model exten
         }
 
         final long teaTime = System.currentTimeMillis();
-        SqliteManager.getByteModelAsync().insertOrReplaceInTx(new ArrayList<ByteModel>(listPartial), new AsyncHelper.OnCompleteListener() {
+	    DaoManager.getByteModelAsync().insertOrReplaceInTx(new ArrayList<ByteModel>(listPartial), new AsyncHelper.OnResultListener<Void>() {
             @Override
-            public void onAsyncComplete(AsyncHelper.Type type) {
-                Assert.assertEquals(type, AsyncHelper.Type.InsertOrReplaceInTx);
+            public void onAsyncResult(Type type, Void aVoid) {
+                Assert.assertEquals(type, Type.InsertOrReplaceInTx);
 
-                DaoManager.v(TAG, "testInsertOrReplaceInTx: SQLiteManager.count() = " + SqliteManager.getByteModelDao().count() + ", listPartial.size() = " + listPartial.size());
+                SQLiteManager.v(TAG, "testInsertOrReplaceInTx: SQLiteManager.count() = " + DaoManager.getByteModelDao().count() + ", listPartial.size() = " + listPartial.size());
                 // Assert.assertEquals(listPartial.size(), SQLiteManager.count());
 
-                DaoManager.v(TAG, "testInsertOrReplaceInTx: first teaTime = " + (System.currentTimeMillis() - teaTime));
+                SQLiteManager.v(TAG, "testInsertOrReplaceInTx: first teaTime = " + (System.currentTimeMillis() - teaTime));
                 final long secondTeaTime = System.currentTimeMillis();
 
                 // 第二次异步
-                SqliteManager.getByteModelAsync().insertOrReplaceInTx(new ArrayList<ByteModel>(listAll), new AsyncHelper.OnCompleteListener() {
-                    @Override
-                    public void onAsyncComplete(AsyncHelper.Type type) {
-                        Assert.assertEquals(type, AsyncHelper.Type.InsertOrReplaceInTx);
-
-                        long daoCount = SqliteManager.getByteModelDao().count();
-                        DaoManager.v(TAG, "testInsertOrReplaceInTx: SQLiteManager.count() = " + daoCount + ", listPartial.size() = " + listAll.size());
-                        DaoManager.v(TAG, "testInsertOrReplaceInTx: second teaTime = " + (System.currentTimeMillis() - secondTeaTime));
-
-                        Assert.assertEquals(listAll.size(), daoCount);
-                    }
+	            DaoManager.getByteModelAsync().insertOrReplaceInTx(new ArrayList<ByteModel>(listAll), new AsyncHelper.OnResultListener<Void>() {
+	                @Override
+	                public void onAsyncResult(Type type, Void aVoid) {
+		                Assert.assertEquals(type, Type.InsertOrReplaceInTx);
+		
+		                long daoCount = DaoManager.getByteModelDao().count();
+		                SQLiteManager.v(TAG, "testInsertOrReplaceInTx: SQLiteManager.count() = " + daoCount + ", listPartial.size() = " + listAll.size());
+		                SQLiteManager.v(TAG, "testInsertOrReplaceInTx: second teaTime = " + (System.currentTimeMillis() - secondTeaTime));
+		
+		                Assert.assertEquals(listAll.size(), daoCount);
+	                }
                 });
             }
         });

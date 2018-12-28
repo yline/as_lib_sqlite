@@ -2,7 +2,7 @@ package com.lib.sqlite.demo.common;
 
 import android.util.Log;
 
-import com.yline.sqlite.common.AbstractDao;
+import com.yline.sqlite.common.AbstractSafelyDao;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -19,7 +19,7 @@ import java.util.List;
 public abstract class AbstractSQLiteTest<Key, Model> {
     public String TAG = "xxx-";
 
-    protected AbstractDao<Key, Model> mDao;
+    protected AbstractSafelyDao<Key, Model> mDao;
 
     public AbstractSQLiteTest() {
         TAG += getClass().getSimpleName();

@@ -1,4 +1,4 @@
-package com.lib.sqlite.demo.db;
+package com.lib.sqlite.demo.dao.model;
 
 /**
  * @author yline 2018/1/29 -- 9:57

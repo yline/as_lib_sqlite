@@ -1,4 +1,4 @@
-package com.yline.sqlite.helper;
+package com.lib.sqlite.demo.dao.model;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -34,8 +34,8 @@ public class ByteModelDao extends AbstractSafelyDao<String, ByteModel> {
         db.execSQL(sql);
     }
 
-    public static void attachSession(HashMap<String, AbstractSafelyDao> hashMap, SQLiteDatabase db) {
-        hashMap.put(TABLE_NAME, new ByteModelDao(db));
+    public static ByteModelDao attachSession(SQLiteDatabase db) {
+    	return new ByteModelDao(db);
     }
 
     public static void dropTable(SQLiteDatabase db, boolean ifExists) {

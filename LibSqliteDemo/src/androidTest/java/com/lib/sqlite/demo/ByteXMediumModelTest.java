@@ -4,8 +4,8 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.lib.sqlite.demo.common.AbstractByteModelTest;
 import com.lib.sqlite.demo.model.XMediumModel;
-import com.yline.sqlite.SQLiteIOUtils;
-import com.yline.sqlite.helper.ByteModel;
+import com.yline.sqlite.helper.SQLiteIOUtils;
+import com.lib.sqlite.demo.dao.model.ByteModel;
 
 import org.junit.Assert;
 import org.junit.runner.RunWith;

@@ -3,8 +3,8 @@ package com.lib.sqlite.demo.common;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 
-import com.yline.sqlite.SqliteManager;
-import com.yline.sqlite.helper.ByteModel;
+import com.lib.sqlite.demo.dao.DaoManager;
+import com.lib.sqlite.demo.dao.model.ByteModel;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -24,7 +24,7 @@ public abstract class AbstractByteModelTest extends AbstractSQLiteTest<String, B
     public void setUp() throws Exception {
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        mDao = SqliteManager.getByteModelDao();
+        mDao = DaoManager.getByteModelDao();
         mRandom = new Random();
     }
 

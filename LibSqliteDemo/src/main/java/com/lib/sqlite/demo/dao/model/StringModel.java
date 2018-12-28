@@ -1,18 +1,18 @@
-package com.yline.sqlite.helper;
+package com.lib.sqlite.demo.dao.model;
 
 import java.io.Serializable;
 
 /**
- * 数据库存储，String -- byte[]
+ * 数据库存储，String -- String
  *
- * @author yline 2018/1/25 -- 19:36
+ * @author yline 2018/1/25 -- 19:31
  * @version 1.0.0
  */
-public class ByteModel implements Serializable {
+public class StringModel implements Serializable {
     private String key;
-    private byte[] value;
+    private String value;
 
-    public ByteModel(String key, byte[] value) {
+    public StringModel(String key, String value) {
         this.key = key;
         this.value = value;
     }
@@ -25,11 +25,11 @@ public class ByteModel implements Serializable {
         this.key = key;
     }
 
-    public byte[] getValue() {
+    public String getValue() {
         return value;
     }
 
-    public void setValue(byte[] value) {
+    public void setValue(String value) {
         this.value = value;
     }
 }

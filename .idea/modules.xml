@@ -4,8 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/LibSqlite/LibSqlite.iml" filepath="$PROJECT_DIR$/LibSqlite/LibSqlite.iml" />
       <module fileurl="file://$PROJECT_DIR$/LibSqliteDemo/LibSqliteDemo.iml" filepath="$PROJECT_DIR$/LibSqliteDemo/LibSqliteDemo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/_LibSqlite.iml" filepath="$PROJECT_DIR$/_LibSqlite.iml" />
-      <module fileurl="file://F:\git_space\as_lib\_LibSqlite\LibSqliteDemo\app.iml" filepath="F:\git_space\as_lib\_LibSqlite\LibSqliteDemo\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/as_lib_sqlite.iml" filepath="$PROJECT_DIR$/as_lib_sqlite.iml" />
     </modules>
   </component>
 </project>

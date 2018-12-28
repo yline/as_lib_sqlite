@@ -4,8 +4,8 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 
 import com.lib.sqlite.demo.common.AbstractSQLiteTest;
-import com.yline.sqlite.SqliteManager;
-import com.yline.sqlite.helper.StringModel;
+import com.lib.sqlite.demo.dao.DaoManager;
+import com.lib.sqlite.demo.dao.model.StringModel;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -23,7 +23,7 @@ public class SQLiteValueTest extends AbstractSQLiteTest<String, StringModel> {
     public void setUp() throws Exception {
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        mDao = SqliteManager.getStringModelDao();
+        mDao = DaoManager.getStringModelDao();
         mRandom = new Random();
     }
 

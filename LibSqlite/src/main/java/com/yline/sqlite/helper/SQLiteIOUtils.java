@@ -1,6 +1,6 @@
-package com.yline.sqlite;
+package com.yline.sqlite.helper;
 
-import com.yline.sqlite.dao.DaoManager;
+import com.yline.sqlite.SQLiteManager;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -17,7 +17,7 @@ import java.io.ObjectOutputStream;
  */
 public class SQLiteIOUtils {
     public static byte[] object2Byte(Object object) {
-        if (null != object) { // && object instanceof Serializable
+        if (null != object) { // && object instanceof Serializable 如果它符合，子类不符合一样无法校验
             ByteArrayOutputStream baoStream = new ByteArrayOutputStream();
             ObjectOutputStream objectOutputStream = null;
             try {
@@ -25,9 +25,9 @@ public class SQLiteIOUtils {
                 objectOutputStream.writeObject(object);
                 return baoStream.toByteArray();
             } catch (NotSerializableException e) {
-                DaoManager.e("SQLiteIOUtils", "objectToByte NotSerializableException -> " + android.util.Log.getStackTraceString(e));
+                SQLiteManager.e("SQLiteIOUtils", "objectToByte NotSerializableException -> " + android.util.Log.getStackTraceString(e));
             } catch (Throwable e) {
-                DaoManager.e("SQLiteIOUtils", "objectToByte Throwable -> " + android.util.Log.getStackTraceString(e));
+                SQLiteManager.e("SQLiteIOUtils", "objectToByte Throwable -> " + android.util.Log.getStackTraceString(e));
             } finally {
                 try {
                     if (null != objectOutputStream) {
@@ -50,10 +50,10 @@ public class SQLiteIOUtils {
                 objectInputStream = new ObjectInputStream(baiStream);
                 return objectInputStream.readObject();
             } catch (IOException e) {
-                DaoManager.e("SQLiteIOUtils", "byteToObject IOException -> " + android.util.Log.getStackTraceString(e));
+                SQLiteManager.e("SQLiteIOUtils", "byteToObject IOException -> " + android.util.Log.getStackTraceString(e));
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
-                DaoManager.e("SQLiteIOUtils", "byteToObject ClassNotFoundException -> " + android.util.Log.getStackTraceString(e));
+                SQLiteManager.e("SQLiteIOUtils", "byteToObject ClassNotFoundException -> " + android.util.Log.getStackTraceString(e));
             } finally {
                 try {
                     if (null != objectInputStream) {

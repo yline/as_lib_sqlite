@@ -40,7 +40,7 @@ ext {
     siteUrl = 'https://github.com/yline/as_lib_sqlite'
     gitUrl = 'https://github.com/yline/as_lib_sqlite.git'
 
-    libraryVersion = '1.1.0'
+    libraryVersion = '1.2.0'
 
     developerId = 'yline'
     developerName = 'yline'
@@ -51,8 +51,10 @@ ext {
     allLicenses = ["Apache-2.0"]
 }
 
-apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
-apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+//apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+apply from: "installv1.gradle"
+apply from: "bintrayv1.gradle"
 
 javadoc {
     options {

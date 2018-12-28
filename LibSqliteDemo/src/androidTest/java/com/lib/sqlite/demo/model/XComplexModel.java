@@ -1,6 +1,6 @@
 package com.lib.sqlite.demo.model;
 
-import com.yline.sqlite.helper.StringModel;
+import com.lib.sqlite.demo.dao.model.StringModel;
 
 import java.io.Serializable;
 import java.util.List;

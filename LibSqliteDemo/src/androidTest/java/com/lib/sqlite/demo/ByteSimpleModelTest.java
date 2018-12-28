@@ -1,9 +1,9 @@
 package com.lib.sqlite.demo;
 
 import com.lib.sqlite.demo.common.AbstractByteModelTest;
-import com.yline.sqlite.SQLiteIOUtils;
-import com.yline.sqlite.helper.ByteModel;
-import com.yline.sqlite.helper.StringModel;
+import com.yline.sqlite.helper.SQLiteIOUtils;
+import com.lib.sqlite.demo.dao.model.ByteModel;
+import com.lib.sqlite.demo.dao.model.StringModel;
 
 import org.junit.Assert;
 

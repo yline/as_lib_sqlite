@@ -3,10 +3,10 @@ package com.lib.sqlite.demo;
 import android.app.Application;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.lib.sqlite.demo.db.LongModelDao;
-import com.yline.sqlite.SqliteManager;
+import com.lib.sqlite.demo.dao.DaoManager;
+import com.lib.sqlite.demo.dao.model.LongModelDao;
 import com.yline.sqlite.common.AbstractSafelyDao;
-import com.yline.sqlite.dao.DaoManager;
+import com.yline.sqlite.SQLiteManager;
 
 import java.util.HashMap;
 
@@ -15,24 +15,15 @@ import java.util.HashMap;
  * @version 1.0.0
  */
 public class IApplication extends Application {
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        SqliteManager.init(this, new DaoManager.OnSQLiteLifeCallback() {
-            @Override
-            public void onCreate(SQLiteDatabase db) {
-                LongModelDao.createTable(db, true);
-            }
-
-            @Override
-            public void onDaoCreate(HashMap<String, AbstractSafelyDao> daoHashMap, SQLiteDatabase db) {
-                LongModelDao.attachSession(daoHashMap, db);
-            }
-
-            @Override
-            public void onUpdate(SQLiteDatabase db) {
-            }
-        });
-    }
+	private static Application sInstance;
+	
+	@Override
+	public void onCreate() {
+		super.onCreate();
+		sInstance = this;
+	}
+	
+	public static Application getInstance() {
+		return sInstance;
+	}
 }
